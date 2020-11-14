@@ -15,6 +15,10 @@
 #include "HorizontalScroll.h"
 #include "RotationTrigger.h"
 #include "CanJump.h"
+#include "ShearTrigger.h"
+#include "ScaleTrigger.h"
+#include "CanScale.h"
+#include "CanSkew.h"
 
 
 class ECS abstract

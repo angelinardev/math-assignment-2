@@ -13,6 +13,8 @@ enum class BodyType
 	BOX,
 	CIRCLE,
 	TRIANGLE,
+	PENTAGON,
+	TRIANGLE2,
 
 	NUM_TYPES
 };
@@ -112,6 +114,7 @@ public:
 
 	//Set the scaled width
 	void ScaleBody(float scale, int fixture);
+	void SkewBody(float scale, int fixture);
 	//Sets the center offset for the body
 	//*if the offset is 0,0, then all corners will be relative to the
 	//center of the actual sprite	void SetCenterOffset(vec2 cent);

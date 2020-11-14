@@ -302,6 +302,7 @@ void PhysicsBody::ScaleBody(float scale, int fixture)
 		m_height += scaledRadius;
 		m_body->GetFixtureList()[fixture].GetShape()->m_radius = m_width / 2.f;
 		m_body->SetAwake(true);
+
 	}
 	else
 	{
@@ -337,8 +338,59 @@ void PhysicsBody::ScaleBody(float scale, int fixture)
 		m_width = rX - lX;
 		m_height = tY - bY;
 		m_body->SetAwake(true);
+		
 	}
 
+}
+void PhysicsBody::SkewBody(float scale, int fixture)
+{
+	if (m_bodyType == BodyType::CIRCLE)
+	{
+		float scaledRadius = (m_width / 2.f) * scale;
+
+		m_width += scaledRadius;
+		m_height += scaledRadius;
+		m_body->GetFixtureList()[fixture].GetShape()->m_radius = m_width / 2.f;
+		m_body->SetAwake(true);
+
+	}
+	else
+	{
+		//Used to calculate new width and height
+		float lX = 999.f;
+		float rX = -999.f;
+		float bY = 999.f;
+		float tY = -999.f;
+
+		//Gets the shape value and casts as b2PolygonShape so we can access the vertices
+		b2PolygonShape* bodyShape = (b2PolygonShape*)m_body->GetFixtureList()[fixture].GetShape();
+
+		//Center of the polygon
+		b2Vec2 center = bodyShape->m_centroid;
+
+		//loops through every vertice
+		for (int i = 0; i < bodyShape->m_count; i++)
+		{
+			//Create normalized direction
+			b2Vec2 vert = bodyShape->m_vertices[i];
+			lX = std::min(lX, vert.x);
+			rX = std::max(rX, vert.x);
+			bY = std::min(bY, vert.y);
+			tY = std::max(tY, vert.y);
+
+			b2Vec2 dir = (vert - center);
+			dir.Normalize();
+
+			//Moves the vert out by a scaled direction vector
+			bodyShape->m_vertices[i] += b2Vec2(vert.y*scale + dir.x, dir.y);
+			//bodyShape->m_vertices[i] += scale * dir;
+		}
+
+		m_width = rX - lX;
+		m_height = tY - bY;
+		m_body->SetAwake(true);
+
+	}
 }
 
 void PhysicsBody::SetRotationAngleDeg(float degrees)
