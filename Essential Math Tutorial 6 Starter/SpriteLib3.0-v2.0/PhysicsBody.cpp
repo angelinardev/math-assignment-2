@@ -382,7 +382,7 @@ void PhysicsBody::SkewBody(float scale, int fixture)
 			dir.Normalize();
 
 			//Moves the vert out by a scaled direction vector
-			bodyShape->m_vertices[i] += b2Vec2(vert.y*scale + dir.x, dir.y);
+			bodyShape->m_vertices[i] += b2Vec2(vert.y*scale + scale*dir.x, dir.y);
 			//bodyShape->m_vertices[i] += scale * dir;
 		}
 
