@@ -144,6 +144,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="CanJump.h" />
+    <ClInclude Include="CanScale.h" />
+    <ClInclude Include="CanSkew.h" />
     <ClInclude Include="DestroyTrigger.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="EffectManager.h" />
@@ -173,12 +175,14 @@
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="RenderingSystem.h" />
     <ClInclude Include="RotationTrigger.h" />
+    <ClInclude Include="ScaleTrigger.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scenes.h" />
     <ClInclude Include="Selectable.h" />
     <ClInclude Include="SelectiveColorEffect.h" />
     <ClInclude Include="SepiaEffect.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShearTrigger.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
@@ -204,6 +208,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraSystem.cpp" />
     <ClCompile Include="CanJump.cpp" />
+    <ClCompile Include="CanScale.cpp" />
+    <ClCompile Include="CanSkew.cpp" />
     <ClCompile Include="DestroyTrigger.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="EffectManager.cpp" />
@@ -232,11 +238,13 @@
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderingSystem.cpp" />
     <ClCompile Include="RotationTrigger.cpp" />
+    <ClCompile Include="ScaleTrigger.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Selectable.cpp" />
     <ClCompile Include="SelectiveColorEffect.cpp" />
     <ClCompile Include="SepiaEffect.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShearTrigger.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />

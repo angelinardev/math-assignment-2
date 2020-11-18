@@ -192,6 +192,18 @@
     <ClInclude Include="RotationTrigger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShearTrigger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleTrigger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CanScale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CanSkew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\imgui\imgui.cpp">
@@ -360,6 +372,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RotationTrigger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShearTrigger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScaleTrigger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CanScale.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CanSkew.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
