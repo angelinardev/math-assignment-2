@@ -28,4 +28,5 @@ protected:
 	int ball = 0;
 	int wall2 = 0;
 	int box = 0;
+	int ceiling = 0;
 };

@@ -110,7 +110,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 	//Setup static Top Platform
 	Scene::BoxMaker(150, 10, 30, -10, 0, 1);
-
+	
 	//Setup static RAMP
 	Scene::BoxMaker(80, 10, 137.1f, -29.3f, -30.f, 1, 0.5);
 
@@ -639,7 +639,199 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	Scene::BoxMaker(25, 10, 1230, 50, -45.f, 1);
 	Scene::BoxMaker(25, 10, 1250, 40, 0, 1);
 	Scene::BoxMaker(25, 10, 1265, 50, 45.f, 1);
+	//blob
+	{
+		auto entity = ECS::CreateEntity();
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
 
+		//Sets up the components
+		std::string fileName = "BeachBall.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 5, 5);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(45.f, -8.f, 5.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
+
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_dynamicBody;
+		tempDef.position.Set(float32(0.f), float32(0.f));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetWidth() - shrinkY) / 2.f), vec2(0.f, 0.f), false, OBJECTS, ENVIRONMENT | PLAYER | GROUND | TRIGGER, 0.1f); // HAS GROUND
+
+		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
+		//
+		auto entity2 = ECS::CreateEntity();
+		//Add components
+		ECS::AttachComponent<Sprite>(entity2);
+		ECS::AttachComponent<Transform>(entity2);
+		ECS::AttachComponent<PhysicsBody>(entity2);
+
+		//Sets up the components
+		//std::string fileName = "BeachBall.png";
+		ECS::GetComponent<Sprite>(entity2).LoadSprite(fileName, 5, 5);
+		ECS::GetComponent<Sprite>(entity2).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity2).SetPosition(vec3(45.f, -8.f, 5.f));
+
+		auto& tempSpr2 = ECS::GetComponent<Sprite>(entity2);
+		auto& tempPhsBody2 = ECS::GetComponent<PhysicsBody>(entity2);
+
+		b2Body* tempBody2;
+		b2BodyDef tempDef2;
+		tempDef2.type = b2_dynamicBody;
+		tempDef2.position.Set(float32(0.f), float32(0.f));
+
+		tempBody2 = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody2 = PhysicsBody(entity2, tempBody2, float((tempSpr2.GetWidth() - shrinkY) / 2.f), vec2(0.f, 0.f), false, OBJECTS, ENVIRONMENT | PLAYER | GROUND | TRIGGER, 0.1f); // HAS GROUND
+
+		tempPhsBody2.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
+
+		b2RevoluteJointDef jointDef;
+		jointDef.bodyA = tempPhsBody.GetBody();
+		jointDef.bodyB = tempPhsBody2.GetBody();
+		jointDef.collideConnected = true;
+
+		jointDef.localAnchorA.Set(tempSpr.GetWidth() / 2.f, 0);
+		jointDef.localAnchorB.Set(-tempSpr.GetWidth() / 2.f, 0);
+
+		b2RevoluteJoint* m_joint;
+
+		m_joint = (b2RevoluteJoint*)m_physicsWorld->CreateJoint(&jointDef);
+		
+		//
+		auto entity3 = ECS::CreateEntity();
+		//Add components
+		ECS::AttachComponent<Sprite>(entity3);
+		ECS::AttachComponent<Transform>(entity3);
+		ECS::AttachComponent<PhysicsBody>(entity3);
+
+		//Sets up the components
+		//std::string fileName = "BeachBall.png";
+		ECS::GetComponent<Sprite>(entity3).LoadSprite(fileName, 5, 5);
+		ECS::GetComponent<Sprite>(entity3).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity3).SetPosition(vec3(45.f, -8.f, 5.f));
+
+		auto& tempSpr3 = ECS::GetComponent<Sprite>(entity3);
+		auto& tempPhsBody3 = ECS::GetComponent<PhysicsBody>(entity3);
+
+		b2Body* tempBody3;
+
+		tempBody3 = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody3 = PhysicsBody(entity3, tempBody3, float((tempSpr3.GetWidth() - shrinkY) / 2.f), vec2(0.f, 0.f), false, OBJECTS, ENVIRONMENT | PLAYER | GROUND | TRIGGER, 0.1f); // HAS GROUND
+
+		tempPhsBody3.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
+		tempPhsBody3.SetGravityScale(0);
+
+		b2RevoluteJointDef jointDef2;
+		jointDef2.bodyA = tempPhsBody2.GetBody();
+		jointDef2.bodyB = tempPhsBody3.GetBody();
+		jointDef2.collideConnected = true;
+
+		jointDef2.localAnchorA.Set(tempSpr.GetWidth() / 2.f, tempSpr.GetWidth()/2.f);
+		jointDef2.localAnchorB.Set(-tempSpr.GetWidth() / 2.f,0);
+
+		b2RevoluteJoint* m_joint2;
+
+		m_joint2 = (b2RevoluteJoint*)m_physicsWorld->CreateJoint(&jointDef2);
+		//
+		//
+		auto entity4 = ECS::CreateEntity();
+		//Add components
+		ECS::AttachComponent<Sprite>(entity4);
+		ECS::AttachComponent<Transform>(entity4);
+		ECS::AttachComponent<PhysicsBody>(entity4);
+
+		//Sets up the components
+		//std::string fileName = "BeachBall.png";
+		ECS::GetComponent<Sprite>(entity4).LoadSprite(fileName, 5, 5);
+		ECS::GetComponent<Sprite>(entity4).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity4).SetPosition(vec3(45.f, -8.f, 5.f));
+
+		auto& tempSpr4 = ECS::GetComponent<Sprite>(entity4);
+		auto& tempPhsBody4 = ECS::GetComponent<PhysicsBody>(entity4);
+
+		b2Body* tempBody4;
+
+		tempBody4 = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody4 = PhysicsBody(entity4, tempBody4, float((tempSpr4.GetWidth() - shrinkY) / 2.f), vec2(0.f, 0.f), false, OBJECTS, ENVIRONMENT | PLAYER | GROUND | TRIGGER, 0.1f); // HAS GROUND
+
+		tempPhsBody4.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
+		tempPhsBody4.SetGravityScale(0);
+
+		b2RevoluteJointDef jointDef3;
+		jointDef3.bodyA = tempPhsBody.GetBody();
+		jointDef3.bodyB = tempPhsBody4.GetBody();
+		jointDef3.collideConnected = true;
+
+		jointDef3.localAnchorA.Set(-tempSpr.GetWidth() / 2.f, tempSpr.GetWidth() / 2.f);
+		jointDef3.localAnchorB.Set(tempSpr.GetWidth() / 2.f, 0);
+		b2RevoluteJoint* m_joint3;
+
+		m_joint3 = (b2RevoluteJoint*)m_physicsWorld->CreateJoint(&jointDef3);
+
+		//
+		auto entity5 = ECS::CreateEntity();
+		//Add components
+		ECS::AttachComponent<Sprite>(entity5);
+		ECS::AttachComponent<Transform>(entity5);
+		ECS::AttachComponent<PhysicsBody>(entity5);
+
+		//Sets up the components
+		//std::string fileName = "BeachBall.png";
+		ECS::GetComponent<Sprite>(entity5).LoadSprite(fileName, 4, 4);
+		ECS::GetComponent<Sprite>(entity5).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity5).SetPosition(vec3(45.f, -8.f, 5.f));
+
+		auto& tempSpr5 = ECS::GetComponent<Sprite>(entity5);
+		auto& tempPhsBody5 = ECS::GetComponent<PhysicsBody>(entity5);
+
+		b2Body* tempBody5;
+
+		tempBody5 = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody5 = PhysicsBody(entity5, tempBody5, float((tempSpr5.GetWidth() - shrinkY) / 2.f), vec2(0.f, 0.f), false, OBJECTS, ENVIRONMENT | PLAYER | GROUND | TRIGGER, 0.1f); // HAS GROUND
+
+		tempPhsBody5.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
+		tempPhsBody5.SetGravityScale(0);
+
+		b2RevoluteJointDef jointDef4;
+		jointDef4.bodyA = tempPhsBody3.GetBody();
+		jointDef4.bodyB = tempPhsBody5.GetBody();
+		jointDef4.collideConnected = true;
+
+		jointDef4.localAnchorA.Set(-tempSpr.GetWidth() / 2.f,tempSpr.GetWidth()/2.f);
+		jointDef4.localAnchorB.Set(tempSpr5.GetWidth() / 2.f, 0);
+		b2RevoluteJoint* m_joint4;
+
+		m_joint4 = (b2RevoluteJoint*)m_physicsWorld->CreateJoint(&jointDef4);
+
+		b2RevoluteJointDef jointDef5;
+		jointDef5.bodyA = tempPhsBody4.GetBody();
+		jointDef5.bodyB = tempPhsBody5.GetBody();
+		jointDef5.collideConnected = true;
+
+		jointDef5.localAnchorA.Set(tempSpr.GetWidth() / 2.f, tempSpr.GetWidth() / 2.f);
+		jointDef5.localAnchorB.Set(-tempSpr5.GetWidth() / 2.f, 0);
+		b2RevoluteJoint* m_joint5;
+
+		m_joint5 = (b2RevoluteJoint*)m_physicsWorld->CreateJoint(&jointDef5);
+
+
+
+		
+	}
 	
 
 
