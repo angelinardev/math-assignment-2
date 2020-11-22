@@ -867,16 +867,25 @@ void PhysicsPlayground::Update()
 	if (canScale.m_canscale)
 	{
 		canScale.m_canscale = false;
-		tempSpr.SetHeight(tempSpr.GetHeight()/2);
-		tempSpr.SetWidth(tempSpr.GetWidth()/2);
+		
 		
 		entity3.ScaleBody(-65. * Timer::deltaTime, 0);
+		//tempSpr.SetHeight(tempSpr.GetHeight() / 2);
+		//tempSpr.SetWidth(tempSpr.GetWidth() / 2);
+		tempSpr.SetHeight(entity3.GetHeight());
+		tempSpr.SetWidth(entity3.GetWidth());
 		entity3.GetBody()->SetTransform(b2Vec2(entity3.GetPosition().x, 20), 0);
 	}
 	if (canScale2.m_canscale)
 	{
 		canScale2.m_canscale = false;
 		entity4.GetBody()->SetTransform(b2Vec2(entity4.GetPosition().x-10, entity4.GetPosition().y +70), 0);
+	}
+
+	if (entity4.GetPosition().x <= 1250.f && entity4.GetPosition().y >= 40.f) //coords of the flag
+	{
+		MessageBox(NULL, "You completed the level!", "Finish", MB_OK);
+		exit(0);
 	}
 	
 }
